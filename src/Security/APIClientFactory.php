@@ -8,6 +8,10 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 /**
  * Factory class for building authenticated clients for the mittwald mStudio v2 API.
+ *
+ * @todo
+ *   This (except the buildAPIClientForCurrentUser function) should be moved
+ *   upstream to the mittwald/api-client package!
  */
 class APIClientFactory
 {
