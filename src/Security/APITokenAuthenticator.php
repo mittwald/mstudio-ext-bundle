@@ -26,8 +26,13 @@ use Symfony\Component\Uid\Uuid;
  */
 class APITokenAuthenticator extends AbstractAuthenticator
 {
-    public function __construct(private readonly LoggerInterface $logger)
+    private readonly LoggerInterface $logger;
+    private readonly APIClientFactory $clientFactory;
+
+    public function __construct(APIClientFactory $clientFactory, LoggerInterface $logger)
     {
+        $this->clientFactory = $clientFactory;
+        $this->logger = $logger;
     }
 
     /**
@@ -77,7 +82,7 @@ class APITokenAuthenticator extends AbstractAuthenticator
             throw new AuthenticationException('No API token provided');
         }
 
-        $client = MittwaldAPIV2Client::newWithToken($apiToken);
+        $client = $this->clientFactory->buildAPIClientForToken($apiToken);
         $user = $client->user()->getUser(new GetUserRequest("self"))->getBody();
 
         $this->logger->info('Authenticated user {user_id} with mStudio API token ', ['user_id' => $user->getUserId()]);

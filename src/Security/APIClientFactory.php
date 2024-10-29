@@ -19,6 +19,17 @@ class APIClientFactory
     }
 
     /**
+     * Builds an API client for a given API token.
+     *
+     * @param string $token The API token
+     * @return MittwaldAPIV2Client An authenticated API client
+     */
+    public function buildAPIClientForToken(string $token): MittwaldAPIV2Client
+    {
+        return MittwaldAPIV2Client::newWithToken($token);
+    }
+
+    /**
      * Builds an API client that is already authenticated for a given user.
      *
      * @param User $user The user for which to build the API client.
