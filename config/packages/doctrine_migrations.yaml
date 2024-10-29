@@ -1,0 +1,5 @@
+#doctrine_migrations:
+#  migrations_paths:
+#    'Mittwald\MStudio\DoctrineMigrations': '@MittwaldExtensionWebhookBundle/Migrations'
+#  enable_profiler: false
+#

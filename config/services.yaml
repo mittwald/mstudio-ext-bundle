@@ -1,0 +1,50 @@
+parameters:
+  mstudio_ext.sso_redirect_route: index
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  Mittwald\MStudio\Bundle\:
+    resource: '../src/'
+
+  Mittwald\MStudio\Webhooks\Security\KeyLoader:
+    class: Mittwald\MStudio\Webhooks\Security\CachingKeyLoader
+    arguments:
+      $inner: '@Mittwald\MStudio\Webhooks\Security\RemoteKeyLoader'
+    public: false
+
+  Mittwald\MStudio\Webhooks\Security\RemoteKeyLoader:
+    class: Mittwald\MStudio\Webhooks\Security\RemoteKeyLoader
+    public: false
+
+  Mittwald\MStudio\Webhooks\Security\WebhookAuthorizer:
+    class: Mittwald\MStudio\Webhooks\Security\WebhookAuthorizer
+    public: true
+
+  Mittwald\MStudio\Webhooks\Security\SignatureVerifier:
+    class: Mittwald\MStudio\Webhooks\Security\SignatureVerifier
+
+  Mittwald\MStudio\Authentication\AuthenticationService:
+    class: Mittwald\MStudio\Authentication\AuthenticationService
+
+  mittwald.api_client.unauthenticated:
+    class: Mittwald\ApiClient\MittwaldAPIV2Client
+    factory: [Mittwald\ApiClient\MittwaldAPIV2Client, newUnauthenticated]
+    arguments:
+      $baseUri: 'https://api.mittwald.de/v2'
+
+  mittwald.api_client.authenticated_as_user:
+    class: Mittwald\ApiClient\MittwaldAPIV2Client
+    factory: ['@Mittwald\MStudio\Bundle\Security\APIClientFactory', buildAPIClientForCurrentUser]
+
+  Mittwald\ApiClient\MittwaldAPIV2Client: '@mittwald.api_client.unauthenticated'
+
+  Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory:
+    class: Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory
+
+  Mittwald\MStudio\Bundle\Controller\SSOController:
+    arguments:
+      $targetRouteAfterAuthentication: '%mstudio_ext.sso_redirect_route%'

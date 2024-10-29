@@ -1,0 +1,23 @@
+{
+    "name": "mittwald/mstudio-ext-bundle",
+    "description": "Symfony bundle for receiving mittwald mStudio webhook calls and managing extension state",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mittwald\\MStudio\\Bundle\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Martin Helmich",
+            "email": "m.helmich@mittwald.de"
+        }
+    ],
+    "require": {
+      "mittwald/mstudio-ext-webhooks": "^0.1",
+      "mittwald/mstudio-ext-auth": "^0.1",
+      "symfony/security-bundle": "^7.1",
+      "symfony/event-dispatcher-contracts": "^3.5"
+    }
+}

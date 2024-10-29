@@ -1,0 +1,11 @@
+doctrine:
+  orm:
+    mappings:
+      MittwaldExtensionWebhookBundle:
+        type: attribute
+        is_bundle: true
+        dir: src/Entity
+        prefix: 'Mittwald\MStudio\Bundle\Entity'
+        alias: Mittwald\MStudio
+    controller_resolver:
+      auto_mapping: false
