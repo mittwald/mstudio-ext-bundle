@@ -17,7 +17,12 @@
     "require": {
       "mittwald/mstudio-ext-webhooks": "^0.1",
       "mittwald/mstudio-ext-auth": "^0.1",
+      "symfony/framework-bundle": "^7.1",
       "symfony/security-bundle": "^7.1",
-      "symfony/event-dispatcher-contracts": "^3.5"
+      "symfony/psr-http-message-bridge": "^7.1",
+      "symfony/event-dispatcher-contracts": "^3.5",
+      "symfony/uid": "^7.1",
+      "doctrine/orm": "^3",
+      "doctrine/doctrine-bundle": "^2"
     }
 }
