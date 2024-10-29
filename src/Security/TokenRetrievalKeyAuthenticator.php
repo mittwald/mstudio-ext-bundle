@@ -16,6 +16,11 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Component\Uid\Uuid;
 
+/**
+ * Authenticator class that authenticates users based on the ATReK mechanism as described in [1].
+ *
+ * [1]: https://developer.mittwald.de/docs/v2/contribution/overview/concepts/authentication/
+ */
 class TokenRetrievalKeyAuthenticator extends AbstractAuthenticator
 {
     const ATREK_QUERY_PARAM = "accessTokenRetrievalKey";

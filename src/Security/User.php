@@ -18,11 +18,6 @@ class User implements UserInterface
 
     private ?string $lastName;
 
-    /**
-     * @var list<string> The user roles
-     */
-    private $roles = [];
-
     public function __construct(
         Uuid $id,
         SSOToken $token = null,
@@ -75,11 +70,7 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return ['ROLE_USER'];
     }
 
     /**
@@ -87,7 +78,5 @@ class User implements UserInterface
      */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 }

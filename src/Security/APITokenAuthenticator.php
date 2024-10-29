@@ -17,17 +17,33 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Component\Uid\Uuid;
 
+/**
+ * Authenticator that authenticates users based on existing mStudio API tokens.
+ *
+ * NOTE:
+ * Using mStudio API tokens is NOT an officially supported way of authenticating
+ * users and is explicitly DISCOURAGED for 3rd-party extensions.
+ */
 class APITokenAuthenticator extends AbstractAuthenticator
 {
     public function __construct(private readonly LoggerInterface $logger)
     {
     }
 
+    /**
+     * Tests if a request is supported for API token authentication.
+     *
+     * For this, either an `X-Access-Token` header or an `Authorization` header,
+     * with either a Bearer token or an API token as a password must be present.
+     */
     public function supports(Request $request): ?bool
     {
         return $this->getAPITokenFromRequest($request) !== null;
     }
 
+    /**
+     * Extract the API token from the request headers.
+     */
     private function getAPITokenFromRequest(Request $request): ?string
     {
         if ($request->headers->has('x-access-token')) {
@@ -51,6 +67,9 @@ class APITokenAuthenticator extends AbstractAuthenticator
         return null;
     }
 
+    /**
+     * Authenticates a user based on the API token present in a request.
+     */
     public function authenticate(Request $request): Passport
     {
         $apiToken = $this->getAPITokenFromRequest($request);
