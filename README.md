@@ -2,6 +2,9 @@
 
 This repository contains a Symfony Bundle for easily setting up a mittwald mStudio extension using a Symfony application.
 
+> [!WARNING]
+> This bundle is **not recommended for production usage, yet**. Use at your own peril.
+
 ## Usage
 
 ```
