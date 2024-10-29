@@ -4,6 +4,7 @@ namespace Mittwald\MStudio\Bundle\Security;
 
 use Mittwald\MStudio\Authentication\AuthenticationError;
 use Mittwald\MStudio\Authentication\AuthenticationService;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,6 +37,10 @@ class TokenRetrievalKeyAuthenticator extends AbstractAuthenticator
     {
         $userId            = $request->query->get(self::USERID_QUERY_PARAM);
         $tokenRetrievalKey = $request->query->get(self::ATREK_QUERY_PARAM);
+
+        if (!is_string($userId) || !is_string($tokenRetrievalKey)) {
+            throw new BadRequestException(self::USERID_QUERY_PARAM . " and " . self::ATREK_QUERY_PARAM . " must be string values");
+        }
 
         try {
             $token = $this->authenticationService->authenticate(

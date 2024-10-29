@@ -36,14 +36,15 @@ class APITokenAuthenticator extends AbstractAuthenticator
 
         if ($request->headers->has('authorization')) {
             $authHeader = $request->headers->get('authorization');
+            if (is_string($authHeader)) {
+                if (preg_match('/Bearer (.+)/', $authHeader, $matches)) {
+                    return $matches[1];
+                }
 
-            if (preg_match('/Bearer (.+)/', $authHeader, $matches)) {
-                return $matches[1];
-            }
-
-            if (preg_match('/Basic (.+)/', $authHeader, $matches)) {
-                [, $password] = explode(':', base64_decode($matches[1]), limit: 2);
-                return $password;
+                if (preg_match('/Basic (.+)/', $authHeader, $matches)) {
+                    [, $password] = explode(':', base64_decode($matches[1]), limit: 2);
+                    return $password;
+                }
             }
         }
 

@@ -6,9 +6,11 @@ use Mittwald\MStudio\Bundle\Repository\ExtensionInstanceRepository;
 use Mittwald\MStudio\Bundle\Security\TokenRetrievalKeyAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class SSOController extends AbstractController
 {
@@ -33,9 +35,12 @@ class SSOController extends AbstractController
         string $contextId,
         #[MapQueryParameter(name: "accessTokenRetrievalKey")] string $tokenRetrievalKey,
         #[MapQueryParameter(name: "userId")] string $userId,
-    )
+    ): Response
     {
         $user = $this->getUser();
+        if (is_null($user)) {
+            throw new AuthenticationException('no authenticated user');
+        }
 
         $this->security->login($user, TokenRetrievalKeyAuthenticator::class);
 

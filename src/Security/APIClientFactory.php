@@ -17,7 +17,12 @@ class APIClientFactory
 
     public function buildAPIClientForUser(User $user): MittwaldAPIV2Client
     {
-        return MittwaldAPIV2Client::newWithToken($user->getToken()->getAccessToken());
+        $tokenObj = $user->getToken();
+        if (is_null($tokenObj)) {
+            throw new AuthenticationException('User is not authenticated');
+        }
+
+        return MittwaldAPIV2Client::newWithToken($tokenObj->getAccessToken());
     }
 
     public function buildAPIClientForCurrentUser(): MittwaldAPIV2Client

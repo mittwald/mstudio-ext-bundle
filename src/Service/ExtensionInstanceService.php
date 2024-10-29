@@ -50,7 +50,7 @@ class ExtensionInstanceService
 
     public function updateExtensionInstance(ExtensionInstanceUpdatedDto $dto): void
     {
-        $instance = $this->repository->find(Uuid::fromString($dto->id));
+        $instance = $this->repository->mustFind(Uuid::fromString($dto->id));
         $instance->setConsentedScopes($dto->consentedScopes);
         $instance->setEnabled($dto->state->enabled);
         $instance->setContext(new ExtensionInstanceContext(
@@ -65,7 +65,7 @@ class ExtensionInstanceService
 
     public function updateExtensionInstanceSecret(string $id, string $secret): void
     {
-        $instance = $this->repository->find(Uuid::fromString($id));
+        $instance = $this->repository->mustFind(Uuid::fromString($id));
         $instance->setSecret($secret);
 
         $this->repository->flush();
