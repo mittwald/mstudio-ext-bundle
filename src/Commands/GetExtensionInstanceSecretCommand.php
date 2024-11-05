@@ -37,6 +37,7 @@ class GetExtensionInstanceSecretCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        /** @var string $id */
         $id = $input->getArgument("instance-id");
         $instance = $this->repository->mustFind($id);
 
