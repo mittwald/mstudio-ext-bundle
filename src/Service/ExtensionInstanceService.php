@@ -8,6 +8,7 @@ use Mittwald\MStudio\Bundle\Event\ExtensionAddedToContextEvent;
 use Mittwald\MStudio\Bundle\Event\ExtensionInstanceRemovedEvent;
 use Mittwald\MStudio\Bundle\Event\ExtensionInstanceUpdatedEvent;
 use Mittwald\MStudio\Bundle\Repository\ExtensionInstanceRepository;
+use Mittwald\MStudio\Bundle\Security\ExtensionInstanceSealer;
 use Mittwald\MStudio\Webhooks\Dto\ExtensionAddedToContextDto;
 use Mittwald\MStudio\Webhooks\Dto\ExtensionInstanceUpdatedDto;
 use Symfony\Component\Uid\Uuid;
@@ -17,6 +18,7 @@ class ExtensionInstanceService
 {
     public function __construct(
         private ExtensionInstanceRepository $repository,
+        private ExtensionInstanceSealer $sealer,
         private EventDispatcherInterface $eventDispatcher,
     )
     {
@@ -39,6 +41,8 @@ class ExtensionInstanceService
             consentedScopes: $dto->consentedScopes,
             enabled: $dto->state->enabled,
         );
+
+        $this->sealer->sealExtensionInstance($instance);
 
         $this->repository->persist($instance);
         $this->repository->flush();

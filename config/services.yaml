@@ -1,5 +1,7 @@
 parameters:
   mstudio_ext.sso_redirect_route: index
+  mstudio_ext.instance_secret_key: CHANGE_ME
+  mstudio_ext.instance_secret_cipher_method: AES-256-CBC
 
 services:
   # default configuration for services in *this* file
@@ -48,3 +50,8 @@ services:
   Mittwald\MStudio\Bundle\Controller\SSOController:
     arguments:
       $targetRouteAfterAuthentication: '%mstudio_ext.sso_redirect_route%'
+
+  Mittwald\MStudio\Bundle\Security\ExtensionInstanceSealer:
+    arguments:
+      $key: '%mstudio_ext.instance_secret_key%'
+      $cipherMethod: '%mstudio_ext.instance_secret_cipher_method%'
