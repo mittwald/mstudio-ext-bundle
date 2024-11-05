@@ -45,6 +45,21 @@ mittwald_extension_webhook_controllers:
   prefix: /
 ```
 
+### 3. Configure encryption key
+
+> [!IMPORTANT]
+> This step is important for making sure that your extension secrets are stored securely.
+> Without this step, the webhooks will only throw exceptions. It's for your own safety. ;)
+
+The safest way to configure the instance secret encryption key is using an environment variable.
+Place the following configuration in your `services.yaml` and make sure the respective environment variable is defined:
+
+```yaml
+# config/services.yaml
+parameters:
+  mstudio_ext.instance_secret_key: '%env(MSTUDIO_EXTENSION_SECRET_KEY)%'
+```
+
 ## Optional integrations
 
 ### Implementing event handlers

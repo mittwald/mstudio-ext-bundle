@@ -53,6 +53,10 @@ class ExtensionInstanceSealer
             return $secret;
         }
 
+        if ($this->key === "CHANGE_ME") {
+            throw new ExtensionInstanceSealerException("no encryption key was defined; refusing to continue for your own good; read the documentation to learn how to configure an encryption key");
+        }
+
         $length = openssl_cipher_iv_length($this->cipherMethod);
         if ($length === false) {
             throw new ExtensionInstanceSealerException("error while building IV");
