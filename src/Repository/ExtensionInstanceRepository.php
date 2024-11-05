@@ -9,6 +9,7 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @extends ServiceEntityRepository<ExtensionInstance>
+ * @method findAll() array<ExtensionInstance>
  */
 class ExtensionInstanceRepository extends ServiceEntityRepository
 {
