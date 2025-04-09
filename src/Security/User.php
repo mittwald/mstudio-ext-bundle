@@ -20,10 +20,10 @@ class User implements UserInterface
 
     public function __construct(
         Uuid $id,
-        SSOToken $token = null,
-        string $email = null,
-        string $firstName = null,
-        string $lastName = null,
+        ?SSOToken $token = null,
+        ?string $email = null,
+        ?string $firstName = null,
+        ?string $lastName = null,
     )
     {
         $this->id = $id;
