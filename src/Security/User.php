@@ -50,7 +50,9 @@ class User implements UserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->id;
+        /** @var non-empty-string $idAsString */
+        $idAsString = (string) $this->id;
+        return $idAsString;
     }
 
     public function getFirstName(): ?string
