@@ -28,7 +28,7 @@
       "symfony/event-dispatcher-contracts": "^3.5",
       "symfony/uid": "^7.1",
       "doctrine/orm": "^3",
-      "doctrine/doctrine-bundle": "^2",
+      "doctrine/doctrine-bundle": "^3",
       "ext-openssl": "*"
     },
     "require-dev": {
