@@ -29,10 +29,11 @@
       "symfony/uid": "^7.1",
       "doctrine/orm": "^3",
       "doctrine/doctrine-bundle": "^2",
-      "ext-openssl": "*"
+      "ext-openssl": "*",
+      "php": "^8.2"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.12",
-        "phpunit/phpunit": "^11.4"
+        "phpunit/phpunit": "^11.4 || ^12.4"
     }
 }
