@@ -24,7 +24,7 @@
       "mittwald/mstudio-ext-auth": "^0.1",
       "symfony/framework-bundle": "^7.1",
       "symfony/security-bundle": "^7.1",
-      "symfony/psr-http-message-bridge": "^7.1",
+      "symfony/psr-http-message-bridge": "^8.1",
       "symfony/event-dispatcher-contracts": "^3.5",
       "symfony/uid": "^7.1",
       "doctrine/orm": "^3",
